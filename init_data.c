@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fourchette.c                                       :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,28 @@
 #include "philo.h"
 
 /* ************************************************************************** */
-int init_fourchette(t_data *d)
+void init_data(t_data *d)
 {
-	int i;
-
-	i = 0;
-	while (i < d->max_philo)
-	{
-		if((pthread_mutex_init(d->philo[i].fourchette, NULL)) != 0)
-			return (ERROR);
-		i++;
-	}
-
-	return (NO_ERROR);
+	d->max_philo		= 3;	
+	d->time_to_die 		= 10 * 1000;	// after the last meal
+	d->time_to_eat 		= 2 * 1000;
+	d->time_to_sleep 	= 5 * 1000;
+	d->max_eat 			= 10 * 1000;
+	d->philo			= NULL;
 }
 
 /* ************************************************************************** */
-void destroy_fourchette(t_data *d)
-{
-	int i;
 
-	i = 0;
-	while (i < d->max_philo)
-	{
-		pthread_mutex_destroy(d->philo[i].fourchette);
-		i++;
-	}
-}
+	// /* ------------------------------------------------------ */
+	// if (argc != 5 && argc != 6)
+	// {
+	// 	write(1, TXT_ERR_ARG, ft_strlen(TXT_ERR_ARG));
+	// 	return (ERROR);
+	// }
+	// /* ------------------------------------------------------ */
+	// if((save_arg(argc, argv, &d)) == ERROR)
+	// {
+	// 	write(1, TXT_ERR_CNT, ft_strlen(TXT_ERR_CNT));
+	// 	return (ERROR);
+	// }
+	// /* ------------------------------------------------------ */

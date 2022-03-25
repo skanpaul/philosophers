@@ -20,34 +20,48 @@
 /* ************************************************************************** */
 # include <sys/time.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <stdbool.h>
 # include <pthread.h>
 # include <unistd.h>
 /* ************************************************************************** */
-typedef struct s_data
-{
-	int				n_philo;	
-	int 			time_to_die;	// after the last meal
-	int 			time_to_eat;
-	int 			time_to_sleep;
-	int 			max_eat;		//number_of_times_each_philosopher_must_eat;
-
-} t_data;
-/* ************************************************************************** */
+// typedef struct s_philo t_philo;
+// typedef struct s_data t_data;
+/* -------------------------------------------------------------------------- */
 typedef struct s_philo
 {
 	pthread_t		*id;
 	pthread_mutex_t	*fourchette;
+	bool			living;
 } t_philo;
+/* -------------------------------------------------------------------------- */
+typedef struct s_data
+{
+	int				max_philo;	
+	int 			time_to_die;	// after the last meal
+	int 			time_to_eat;
+	int 			time_to_sleep;
+	int 			max_eat;		//number_of_times_each_philosopher_must_eat;
+	t_philo			*philo;
+	pthread_mutex_t terminal;
+
+} t_data;
 /* ************************************************************************** */
+void	init_data(t_data *d);
+int		save_arg(int argc, char **argv, t_data *d);
+/* -------------------------------------------------------------------------- */
+void	create_philospher(t_data *d);
+int		give_life(t_data *d);
+void 	*philo_life(void *arg);
+/* -------------------------------------------------------------------------- */
+int		init_fourchette(t_data *d);
+void	destroy_fourchette(t_data *d);
+/* -------------------------------------------------------------------------- */
 int		ft_strlen(char *str);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 bool	is_countable(char *str);
-int		save_arg(int argc, char **argv, t_data *d);
-
 /* ************************************************************************** */
-
 #endif
 
 
