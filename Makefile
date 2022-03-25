@@ -9,10 +9,11 @@
 #    Updated: 2022/03/22 11:43:10 by ski              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME		= philo
+NAME	= philo
 
 CC		= gcc
-CFLAG	= -Wall -Wextra -Werror
+CFLAG	= -g -Wall -Wextra -Werror
+TFLAG	= -pthread
 
 RM		= rm -f
 # **************************************************************************** #
@@ -25,7 +26,7 @@ OBJ		= $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAG) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAG) $(TFLAG) $(OBJ) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)
