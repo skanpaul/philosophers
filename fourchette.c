@@ -12,6 +12,15 @@
 #include "philo.h"
 
 /* ************************************************************************** */
+int create_fourchette(t_data *d)
+{
+	d->fourchette = (pthread_mutex_t *) malloc(d->max_philo * sizeof(pthread_mutex_t));
+	if (d->fourchette == NULL)
+		return (ERROR);
+
+	return (NO_ERROR);
+}
+/* ************************************************************************** */
 int init_fourchette(t_data *d)
 {
 	int i;
@@ -19,7 +28,7 @@ int init_fourchette(t_data *d)
 	i = 0;
 	while (i < d->max_philo)
 	{
-		if((pthread_mutex_init(d->philo[i].fourchette, NULL)) != 0)
+		if((pthread_mutex_init(&d->fourchette[i], NULL)) != 0)
 			return (ERROR);
 		i++;
 	}
@@ -35,7 +44,7 @@ void destroy_fourchette(t_data *d)
 	i = 0;
 	while (i < d->max_philo)
 	{
-		pthread_mutex_destroy(d->philo[i].fourchette);
+		pthread_mutex_destroy(&d->fourchette[i]);
 		i++;
 	}
 }

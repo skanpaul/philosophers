@@ -17,16 +17,22 @@ int main()
 {
 	t_data	d;	
 	t_philo *philo;
+	
 
-	init_data(&d); // A REMPLACER PAR LECTURE DE ARGC ET ARGV
+	// DONNÉES DU JEUX
+	init_data(&d); 
 
-	// CREER DONNEES PHILOSOPHERS
-	if (   (philo = create_philospher(&d))    == NULL)
-		return (ERROR);	
+	// CREER LES FOURCHETTES
+	if((create_fourchette(&d)) == ERROR)
+		return (ERROR);
 
 	// INITIALISER FOURCHETTE ET JOURNAL
 	if ((init_fourchette(&d)) == ERROR)
 		return (ERROR);
+
+	// CREER DONNEES PHILOSOPHERS
+	if ((philo = create_philospher(&d)) == NULL)
+		return (ERROR);	
 
 	// DONNER LA VIE AU PHILOSOPGHER
 
@@ -36,20 +42,33 @@ int main()
 
 
 	// DETRUIRE FOURCHETTE ET JOURNAL
-
 	destroy_fourchette(&d);
+
+	return (NO_ERROR);
 }
 
 /* ************************************************************************** */
 void *philo_life(void *arg)
 {
-	t_data *d;
+	t_philo *philo;
+	pthread_mutex_t *fourchette;
+	pthread_mutex_t f_gauche;
+	pthread_mutex_t f_droite;
 
-	d = (t_data *)arg;
+	philo = (t_philo *)arg;
+	fourchette = philo->d->fourchette;
 
 	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
-
-		// ATTENDRE FOURCHETTE POUR MANGER
+	while (philo->living == true)
+	{
+		
+		// A QUEL MOMENT LE PHILOSOPHER DOIT IL MANGER
+		
+		
+		
+		
+		// ATTENDRE FOURCHETTE GAUCHE ET DROITE POUR MANGER
+		pthread_mutex_lock(fourchette);
 			// timestamp
 
 		// MANGER --> prendre le temps de manger --> TIMER DE MORT au début du repas
@@ -60,7 +79,7 @@ void *philo_life(void *arg)
 
 		// PENSER --> prendre le temps de penser
 			// timestamp
-
+	}
 	// END-LOOP --------------------------------------------------------------
 
 

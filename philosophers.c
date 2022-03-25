@@ -25,7 +25,7 @@ t_philo *create_philospher(t_data *d)
 	{
 		philo[i].id_philo = i;
 		philo[i].living = true;
-		philo[i].data = d;
+		philo[i].d = d;
 		i++;
 	}
 
@@ -42,7 +42,8 @@ int give_life(t_philo *philo, t_data *d)
 	while (i < d->max_philo)
 	{
 		/* ------------------------------------------------------------- */
-		res = pthread_create(philo[i].id_thread, NULL, &philo_life, (void *)d);
+		res = pthread_create(&philo[i].id_thread, NULL, 
+								&philo_life, (void *)&philo[i]);
 		if (res != 0)
 			return (ERROR);
 		/* ------------------------------------------------------------- */
