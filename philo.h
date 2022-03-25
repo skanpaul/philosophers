@@ -38,7 +38,8 @@ typedef struct s_data
 /* -------------------------------------------------------------------------- */
 typedef struct s_philo
 {
-	pthread_t		*id;
+	pthread_t		*id_thread;
+	int				id_philo;
 	pthread_mutex_t	*fourchette;
 	bool			living;
 	t_data			*data;
@@ -48,7 +49,7 @@ void	init_data(t_data *d);
 int		save_arg(int argc, char **argv, t_data *d);
 /* -------------------------------------------------------------------------- */
 t_philo	*create_philospher(t_data *d);
-int		give_life(t_philo *philo, );
+int		give_life(t_philo *philo, t_data *d);
 void 	*philo_life(void *arg);
 /* -------------------------------------------------------------------------- */
 int		init_fourchette(t_data *d);

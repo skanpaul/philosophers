@@ -21,7 +21,7 @@ int main()
 	init_data(&d); // A REMPLACER PAR LECTURE DE ARGC ET ARGV
 
 	// CREER DONNEES PHILOSOPHERS
-	if((philo = create_philospher(d.max_philo, &d) == NULL)
+	if (   (philo = create_philospher(&d))    == NULL)
 		return (ERROR);	
 
 	// INITIALISER FOURCHETTE ET JOURNAL
