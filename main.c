@@ -21,30 +21,31 @@ int main()
 	init_data(&d); // A REMPLACER PAR LECTURE DE ARGC ET ARGV
 
 	// CREER DONNEES PHILOSOPHERS
+	if((philo = create_philospher(d.max_philo, &d) == NULL)
+		return (ERROR);	
 
-	
-
-	// INITIALISER FOURCHETTE
+	// INITIALISER FOURCHETTE ET JOURNAL
 	if ((init_fourchette(&d)) == ERROR)
 		return (ERROR);
-
 
 	// DONNER LA VIE AU PHILOSOPGHER
 
 
-	// ATTENDRE QU UN SEUL PHILOSOPHER MEURS
+
+	// DES QU UN PHILOSOPHER MEURT, LE PROGRAMME S-ARRETE
 
 
+	// DETRUIRE FOURCHETTE ET JOURNAL
 
-
-
-	// DETRUIRE FOURCHETTE
 	destroy_fourchette(&d);
 }
 
 /* ************************************************************************** */
 void *philo_life(void *arg)
 {
+	t_data *d;
+
+	d = (t_data *)arg;
 
 	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
 
@@ -64,6 +65,7 @@ void *philo_life(void *arg)
 
 
 	// EST MORT
+		
 		// timestamp
 
 

@@ -25,16 +25,6 @@
 # include <pthread.h>
 # include <unistd.h>
 /* ************************************************************************** */
-// typedef struct s_philo t_philo;
-// typedef struct s_data t_data;
-/* -------------------------------------------------------------------------- */
-typedef struct s_philo
-{
-	pthread_t		*id;
-	pthread_mutex_t	*fourchette;
-	bool			living;
-} t_philo;
-/* -------------------------------------------------------------------------- */
 typedef struct s_data
 {
 	int				max_philo;	
@@ -42,16 +32,23 @@ typedef struct s_data
 	int 			time_to_eat;
 	int 			time_to_sleep;
 	int 			max_eat;		//number_of_times_each_philosopher_must_eat;
-	t_philo			*philo;
-	pthread_mutex_t terminal;
+	pthread_mutex_t journal;
 
 } t_data;
+/* -------------------------------------------------------------------------- */
+typedef struct s_philo
+{
+	pthread_t		*id;
+	pthread_mutex_t	*fourchette;
+	bool			living;
+	t_data			*data;
+} t_philo;
 /* ************************************************************************** */
 void	init_data(t_data *d);
 int		save_arg(int argc, char **argv, t_data *d);
 /* -------------------------------------------------------------------------- */
-void	create_philospher(t_data *d);
-int		give_life(t_data *d);
+t_philo	*create_philospher(t_data *d);
+int		give_life(t_philo *philo, );
 void 	*philo_life(void *arg);
 /* -------------------------------------------------------------------------- */
 int		init_fourchette(t_data *d);

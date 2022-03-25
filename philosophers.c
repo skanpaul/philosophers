@@ -12,23 +12,27 @@
 #include "philo.h"
 
 /* ************************************************************************** */
-void create_philospher(t_data *d)
+t_philo *create_philospher(it_data *d)
 {
+	t_philo *philo;
 	int i;	
 	
-	d->philo = (t_philo *)malloc(d->max_philo * sizeof(t_philo));
+	if((philo = (t_philo *)malloc(d->max_philo * sizeof(t_philo))) == NULL)
+		return (NULL);
 
-	// Activer flag living: 
 	i = 0;
 	while (i < d->max_philo)
 	{
-		d->philo[i].living = true;
+		philo[i].living = true;
+		philo[i].data = d;
 		i++;
 	}
+
+	return (philo);
 }
 
 /* ************************************************************************** */
-int give_life(t_data *d)
+int give_life(t_philo *philo, t_data *d)
 {
 	int i;
 	int res;
@@ -36,10 +40,17 @@ int give_life(t_data *d)
 	i = 0;
 	while (i < d->max_philo)
 	{
+		/* ------------------------------------------------------------- */
 		res = pthread_create(d->philo[i].id, NULL, &philo_life, (void *)d);
 		if (res != 0)
 			return (ERROR);
+		/* ------------------------------------------------------------- */
+		res = pthread_detach(d->philo[i].id);
+		if (res != 0)
+			return (ERROR);
+		/* ------------------------------------------------------------- */
 		i++;
+		/* ------------------------------------------------------------- */
 	}
 	return (NO_ERROR);
 }
