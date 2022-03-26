@@ -48,3 +48,28 @@ void destroy_fourchette(t_data *d)
 		i++;
 	}
 }
+
+/* ************************************************************************** */
+pthread_mutex_t init_f_gauche(pthread_mutex_t *f, t_philo *p)
+{
+	if (p->d->max_philo == 1)
+		return (f[0]);
+	else 
+	{
+		if (d)
+	}
+}
+
+
+/* ************************************************************************** */
+pthread_mutex_t init_f_droite(pthread_mutex_t *f, t_philo *p)
+{
+	if (p->d->max_philo == 1)
+		return (f[0]);
+	else
+	{
+
+	}
+}
+
+/* ************************************************************************** */

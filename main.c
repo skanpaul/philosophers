@@ -58,14 +58,13 @@ void *philo_life(void *arg)
 	philo = (t_philo *)arg;
 	fourchette = philo->d->fourchette;
 
+	// f_gauche 
+
 	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
 	while (philo->living == true)
 	{
 		
-		// A QUEL MOMENT LE PHILOSOPHER DOIT IL MANGER
-		
-		
-		
+		// A QUEL MOMENT LE PHILOSOPHER DOIT IL MANGER		
 		
 		// ATTENDRE FOURCHETTE GAUCHE ET DROITE POUR MANGER
 		pthread_mutex_lock(fourchette);
