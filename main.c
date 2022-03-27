@@ -16,102 +16,47 @@
 int main()
 {
 	t_data	d;	
-	t_philo *philo;
-	
+	t_philo *philo; 
+	int wait_time;
 
-	// DONNÉES DU JEUX
+	// 1) DONNÉES DU JEUX -----------------------------------------
 	init_data(&d); 
+	
+	// if(save_arg(argc, argv, &d) == ERROR)
+	// 	return (ERROR);
 
-	// CREER LES FOURCHETTES
-	if((create_fourchette(&d)) == ERROR)
+	if ((check_game_data(&d)) == ERROR)
 		return (ERROR);
 
-	// INITIALISER FOURCHETTE ET JOURNAL
-	if ((init_fourchette(&d)) == ERROR)
+	wait_time = d.time_to_die / 10;
+	// ------------------------------------------------------------
+
+	// 2) CREER LES FOURCHETTES -----------------------------------
+	if((create_mtx_fork_set(&d)) == ERROR)
 		return (ERROR);
 
-	// CREER DONNEES PHILOSOPHERS
+	// 3) INIT ALL MUTEX: 1) mtx_fork_set 2) mtx_journal 3) mtx_all_living
+	if ((init_all_mutex(&d)) == ERROR)
+		return (ERROR);
+
+	// 4) CREER DONNEES PHILOSOPHERS ------------------------------
 	if ((philo = create_philospher(&d)) == NULL)
 		return (ERROR);	
 
-	// DONNER LA VIE AU PHILOSOPGHER
+	// 5) DONNER LA VIE AU PHILOSOPGHER ---------------------------
+	if ((give_life(philo, &d)) == ERROR)
+		return (ERROR);
 
+	// 6) DES QU UN PHILOSOPHER MEURT, LE PROGRAMME S-ARRETE ------
 
+	while (d.all_living) 
+		usleep (wait_time);
 
-	// DES QU UN PHILOSOPHER MEURT, LE PROGRAMME S-ARRETE
-
-
-	// DETRUIRE FOURCHETTE ET JOURNAL
-	destroy_fourchette(&d);
+	// DESTROY ALL MUTEX: 1) mtx_fork_set 2) mtx_journal 3) mtx_all_living
+	destroy_all_mutex(&d);
 
 	return (NO_ERROR);
 }
 
 /* ************************************************************************** */
-void *philo_life(void *arg)
-{
-	t_philo *philo;
-	pthread_mutex_t *fourchette;
-	pthread_mutex_t f_gauche;
-	pthread_mutex_t f_droite;
-
-	philo = (t_philo *)arg;
-	fourchette = philo->d->fourchette;
-
-	f_gauche = init_f_gauche(fourchette, philo);
-	f_droite = init_f_gauche(fourchette, philo);
-
-	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
-	while (philo->living == true)
-	{
-		
-		// A QUEL MOMENT LE PHILOSOPHER DOIT IL MANGER		
-		
-		// ATTENDRE FOURCHETTE GAUCHE ET DROITE POUR MANGER
-		pthread_mutex_lock(&f_gauche);
-		pthread_mutex_lock(&f_droite);
-
-
-		
-		pthread_mutex_lock(&f_droite);
-		pthread_mutex_lock(&f_gauche);
-			// timestamp
-
-		// MANGER --> prendre le temps de manger --> TIMER DE MORT au début du repas
-			// timestamp
-		
-		// DORMIR --> prendre le temps de dormir
-			// timestamp
-
-		// PENSER --> prendre le temps de penser
-			// timestamp
-	}
-	// END-LOOP --------------------------------------------------------------
-
-
-	// EST MORT
-		
-		// timestamp
-
-
-	return (arg);
-}
-
-/* ************************************************************************** */
-
-
-	// struct timeval chrono;
-
-	// int ms1;
-	// int ms2;
-
-
-	// gettimeofday(&chrono, NULL);
-	// ms1 = chrono.tv_usec;
-
-	// gettimeofday(&chrono, NULL);
-	// ms2 = chrono.tv_usec;
-
-	// printf("ms1: %d\n", ms1);
-	// printf("ms1: %d\n", ms2);
 

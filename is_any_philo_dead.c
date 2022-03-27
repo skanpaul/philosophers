@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_arg.c                                         :+:      :+:    :+:   */
+/*   is_any_philo_dead.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 12:02:51 by ski               #+#    #+#             */
-/*   Updated: 2022/03/25 12:02:53 by ski              ###   ########.fr       */
+/*   Created: 2022/03/27 16:08:24 by ski               #+#    #+#             */
+/*   Updated: 2022/03/27 16:08:25 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
 /* ************************************************************************** */
-int save_arg(int argc, char **argv, t_data *d)
+bool is_any_philo_dead(t_philo *p)
 {
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_countable(argv[i]))
-		{
-			ft_printf("one of the argument are not countable\n");
-			return (ERROR);
-		}
-		i++;
-	}
-	d->max_philo = ft_atoi(argv[1]);
-	d->time_to_die = ft_atoi(argv[2]);
-	d->time_to_eat = ft_atoi(argv[3]);
-	d->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		d->max_eat = ft_atoi(argv[5]);
-	d->all_living		= true;
-	return (NO_ERROR);
+	bool answer;
+	
+	pthread_mutex_lock(&p->d->mtx_all_living);
+	//-----------------------------------------
+	if(p->d->all_living == true)
+		answer = true;
+	else
+		answer = false;
+	//-----------------------------------------
+	pthread_mutex_lock(&p->d->mtx_all_living);
+	return (answer);
 }
 
 /* ************************************************************************** */

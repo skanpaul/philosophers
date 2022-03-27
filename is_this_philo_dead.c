@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_arg.c                                         :+:      :+:    :+:   */
+/*   is_this_philo_dead.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 12:02:51 by ski               #+#    #+#             */
-/*   Updated: 2022/03/25 12:02:53 by ski              ###   ########.fr       */
+/*   Created: 2022/03/27 14:40:12 by ski               #+#    #+#             */
+/*   Updated: 2022/03/27 14:40:13 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
 /* ************************************************************************** */
-int save_arg(int argc, char **argv, t_data *d)
+bool is_this_philo_dead(t_philo *p)
 {
-	int i;
+	int timestamp;
 
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_countable(argv[i]))
-		{
-			ft_printf("one of the argument are not countable\n");
-			return (ERROR);
-		}
-		i++;
-	}
-	d->max_philo = ft_atoi(argv[1]);
-	d->time_to_die = ft_atoi(argv[2]);
-	d->time_to_eat = ft_atoi(argv[3]);
-	d->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		d->max_eat = ft_atoi(argv[5]);
-	d->all_living		= true;
-	return (NO_ERROR);
+	timestamp = get_timestamp();
+	
+	if (timestamp - p->stamp_eat >= p->d->time_to_die)
+		return (true);
+	return (false);
 }
 
 /* ************************************************************************** */

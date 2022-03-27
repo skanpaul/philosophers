@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
-
 /* ************************************************************************** */
 t_philo *create_philospher(t_data *d)
 {
@@ -19,16 +18,19 @@ t_philo *create_philospher(t_data *d)
 	
 	if((philo = (t_philo *)malloc(d->max_philo * sizeof(t_philo))) == NULL)
 		return (NULL);
-
 	i = 0;
 	while (i < d->max_philo)
 	{
 		philo[i].id_philo = i + 1;
 		philo[i].living = true;
 		philo[i].d = d;
+		philo[i].stamp_takefork = get_timestamp();
+		philo[i].stamp_eat = philo[i].stamp_takefork;
+		philo[i].stamp_sleep = philo[i].stamp_takefork;
+		philo[i].stamp_think = philo[i].stamp_takefork;
+		philo[i].stamp_died = philo[i].stamp_takefork;
 		i++;
 	}
-
 	return (philo);
 }
 

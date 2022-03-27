@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_arg.c                                         :+:      :+:    :+:   */
+/*   check_game_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 12:02:51 by ski               #+#    #+#             */
-/*   Updated: 2022/03/25 12:02:53 by ski              ###   ########.fr       */
+/*   Created: 2022/03/27 16:39:06 by ski               #+#    #+#             */
+/*   Updated: 2022/03/27 16:39:09 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
 /* ************************************************************************** */
-int save_arg(int argc, char **argv, t_data *d)
+int check_game_data(t_data *d)
 {
-	int i;
+	if (DISPLAY_INFO == 0)
+		return (NO_ERROR);
 
-	i = 1;
-	while (i < argc)
+	if (d->time_to_eat > d->time_to_die)
 	{
-		if (!is_countable(argv[i]))
-		{
-			ft_printf("one of the argument are not countable\n");
-			return (ERROR);
-		}
-		i++;
+		ft_printf("time to eat CAN NOT BE longer than time to die\n");
+		return (ERROR);
 	}
-	d->max_philo = ft_atoi(argv[1]);
-	d->time_to_die = ft_atoi(argv[2]);
-	d->time_to_eat = ft_atoi(argv[3]);
-	d->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		d->max_eat = ft_atoi(argv[5]);
-	d->all_living		= true;
+
+	if (d->time_to_eat + d->time_to_sleep > d->time_to_die)
+	{
+		ft_printf("time to eat PLUS time to sleep CAN NOT BE longer than time to die\n");
+		return (ERROR);
+	}
+
 	return (NO_ERROR);
 }
 
-/* ************************************************************************** */
+
