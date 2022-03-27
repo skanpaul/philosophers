@@ -23,7 +23,7 @@ t_philo *create_philospher(t_data *d)
 	i = 0;
 	while (i < d->max_philo)
 	{
-		philo[i].id_philo = i;
+		philo[i].id_philo = i + 1;
 		philo[i].living = true;
 		philo[i].d = d;
 		i++;

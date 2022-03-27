@@ -60,9 +60,11 @@ t_philo	*create_philospher(t_data *d);
 int		give_life(t_philo *philo, t_data *d);
 void 	*philo_life(void *arg);
 /* -------------------------------------------------------------------------- */
-int		create_fourchette(t_data *d);
-int		init_fourchette(t_data *d);
-void	destroy_fourchette(t_data *d);
+int				create_fourchette(t_data *d);
+pthread_mutex_t	init_f_gauche(pthread_mutex_t *f, t_philo *p);
+pthread_mutex_t	init_f_droite(pthread_mutex_t *f, t_philo *p);
+int				init_fourchette(t_data *d);
+void			destroy_fourchette(t_data *d);
 /* -------------------------------------------------------------------------- */
 int		ft_strlen(char *str);
 int		ft_isdigit(int c);

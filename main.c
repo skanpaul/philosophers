@@ -58,7 +58,8 @@ void *philo_life(void *arg)
 	philo = (t_philo *)arg;
 	fourchette = philo->d->fourchette;
 
-	// f_gauche 
+	f_gauche = init_f_gauche(fourchette, philo);
+	f_droite = init_f_gauche(fourchette, philo);
 
 	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
 	while (philo->living == true)
@@ -67,7 +68,13 @@ void *philo_life(void *arg)
 		// A QUEL MOMENT LE PHILOSOPHER DOIT IL MANGER		
 		
 		// ATTENDRE FOURCHETTE GAUCHE ET DROITE POUR MANGER
-		pthread_mutex_lock(fourchette);
+		pthread_mutex_lock(&f_gauche);
+		pthread_mutex_lock(&f_droite);
+
+
+		
+		pthread_mutex_lock(&f_droite);
+		pthread_mutex_lock(&f_gauche);
 			// timestamp
 
 		// MANGER --> prendre le temps de manger --> TIMER DE MORT au début du repas
