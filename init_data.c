@@ -15,17 +15,18 @@
 void init_data(t_data *d)
 {
 	d->max_philo		= 3;	
-	d->time_to_die 		= 10 * 1000;	// after the beginning of last meal
-	d->time_to_eat 		= 2 * 1000;
-	d->time_to_sleep 	= 5 * 1000;
+	d->time_die 		= 10 * 1000;	// after the beginning of last meal
+	d->time_eat 		= 2 * 1000;
+	d->time_sleep 	= 5 * 1000;
 	d->max_eat 			= 10;
 	d->all_living		= true;
 
-	ft_printf("[%d] philosophers\n", d->max_philo);
-	ft_printf("Time to die \t[%d ms]\n", d->time_to_die);
-	ft_printf("Time to eat \t[%d ms]\n", d->time_to_eat);
-	ft_printf("Time to sleep \t[%d ms]\n", d->time_to_sleep);
-	ft_printf("Maximum meal \t[%d]\n", d->max_eat);
+	printf("[%d] philosophers\n", d->max_philo);
+	printf("Time to die \t[%d ms]\n", d->time_die);
+	printf("Time to eat \t[%d ms]\n", d->time_eat);
+	printf("Time to sleep \t[%d ms]\n", d->time_sleep);
+	printf("Maximum meal \t[%d]\n", d->max_eat);
+	printf("\n");
 
 }
 

@@ -21,14 +21,14 @@ t_philo *create_philospher(t_data *d)
 	i = 0;
 	while (i < d->max_philo)
 	{
-		philo[i].id_philo = i + 1;
+		philo[i].id = i + 1;
 		philo[i].living = true;
 		philo[i].d = d;
-		philo[i].stamp_takefork = get_timestamp();
-		philo[i].stamp_eat = philo[i].stamp_takefork;
-		philo[i].stamp_sleep = philo[i].stamp_takefork;
-		philo[i].stamp_think = philo[i].stamp_takefork;
-		philo[i].stamp_died = philo[i].stamp_takefork;
+		philo[i].stp_fork = get_timestamp();
+		philo[i].stp_eat = philo[i].stp_fork;
+		philo[i].stp_sleep = philo[i].stp_fork;
+		philo[i].stp_think = philo[i].stp_fork;
+		philo[i].stp_died = philo[i].stp_fork;
 		i++;
 	}
 	return (philo);
@@ -44,12 +44,12 @@ int give_life(t_philo *philo, t_data *d)
 	while (i < d->max_philo)
 	{
 		/* ------------------------------------------------------------- */
-		res = pthread_create(&philo[i].id_thread, NULL, 
-								&philo_life, (void *)&philo[i]);
+		res = pthread_create(&philo[i].thread, NULL, 
+								&thread_life, (void *)&philo[i]);
 		if (res != 0)
 			return (ERROR);
 		/* ------------------------------------------------------------- */
-		res = pthread_detach(philo[i].id_thread);
+		res = pthread_detach(philo[i].thread);
 		if (res != 0)
 			return (ERROR);
 		/* ------------------------------------------------------------- */

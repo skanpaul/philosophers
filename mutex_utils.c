@@ -12,19 +12,19 @@
 #include "philo.h"
 
 /* ************************************************************************** */
-int init_all_mutex(t_data *d)
+int	mtx_init_all(pthread_mutex_t *mutex_fork_list, t_data *d)
 {
 	int i;
 
 	i = 0;
 	while (i < d->max_philo)
 	{
-		if((pthread_mutex_init(&d->mtx_fork_set[i], NULL)) != 0)
+		if((pthread_mutex_init(&mutex_fork_list[i], NULL)) != 0)
 			return (ERROR);
 		i++;
 	}
 
-	if (pthread_mutex_init(&d->mtx_journal, NULL) != 0)
+	if (pthread_mutex_init(&d->mtx_printf, NULL) != 0)
 		return (ERROR);
 
 	if (pthread_mutex_init(&d->mtx_all_living, NULL) != 0)
@@ -34,17 +34,17 @@ int init_all_mutex(t_data *d)
 }
 
 /* ************************************************************************** */
-void destroy_all_mutex(t_data *d)
+void mtx_destroy_all(pthread_mutex_t *mutex_fork_list, t_data *d)
 {
 	int i;
 
 	i = 0;
 	while (i < d->max_philo)
 	{
-		pthread_mutex_destroy(&d->mtx_fork_set[i]);
+		pthread_mutex_destroy(&mutex_fork_list[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&d->mtx_journal);	
+	pthread_mutex_destroy(&d->mtx_printf);	
 	
 	pthread_mutex_destroy(&d->mtx_all_living);	
 }

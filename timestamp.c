@@ -27,10 +27,10 @@ void set_all_timestamp_from_start_eating(t_philo *p)
 	int timestamp;
 
 	timestamp = get_timestamp();
-	p->stamp_eat = timestamp;
-	p->stamp_sleep = p->stamp_eat + p->d->time_to_eat;
-	p->stamp_think = p->stamp_sleep + p->d->time_to_sleep;
-	p->stamp_died = p->stamp_eat + p->d->time_to_die;
+	p->stp_eat = timestamp;
+	p->stp_sleep = p->stp_eat + p->d->time_eat;
+	p->stp_think = p->stp_sleep + p->d->time_sleep;
+	p->stp_died = p->stp_eat + p->d->time_die;
 }
 
 /* ************************************************************************** */

@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   has_finished.c                                     :+:      :+:    :+:   */
+/*   assign_fork_to_philo.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <marvin@42lausanne.ch>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 14:00:21 by ski               #+#    #+#             */
-/*   Updated: 2022/03/27 14:00:23 by ski              ###   ########.fr       */
+/*   Created: 2022/03/28 09:11:18 by ski               #+#    #+#             */
+/*   Updated: 2022/03/28 09:11:20 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
 /* ************************************************************************** */
-bool has_finished_to_eat(t_philo *p)
+void	assign_fork_to_philo(pthread_mutex_t *f, t_philo *p, t_data *d)
 {
-	int timestamp;
+	int i;
 
-	timestamp = get_timestamp();
+	// only 1 philosopher --------------------
+	if (d->max_philo == 1)
+	{
+		p[0].fork_left = &f[0];
+		p[0].fork_right = &f[0];
+	}
+	// 2 or more philosopher -----------------
+	else
+	{
+		i = 0;
+		while (i < d->max_philo)
+		{
+			p[i].fork_left = &f[i];
 
-	if (timestamp - p->stp_eat >= p->d->time_eat)
-		return (true);
-
-	return (false);
-}
-
-/* ************************************************************************** */
-bool has_finished_to_sleep(t_philo *p)
-{
-	int timestamp;
-
-	timestamp = get_timestamp();
-
-	if (timestamp - p->stp_sleep >= p->d->time_sleep)
-		return (true);
-
-	return (false);
+			if (i == d->max_philo - 1)
+				p[i].fork_right = &f[0];
+			else
+				p[i].fork_right = &f[i + 1];
+			i++;
+		}
+	}
+	// ---------------------------------------
+	return ;
 }
 
 /* ************************************************************************** */

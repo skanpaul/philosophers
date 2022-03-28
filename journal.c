@@ -14,41 +14,41 @@
 /* ************************************************************************** */
 void print_has_taken_a_fork(t_philo *p)
 {
-	pthread_mutex_lock(&p->d->mtx_journal);
-	ft_printf("%d %d has take a fork\n", p->stamp_takefork, p->id_philo);
-	pthread_mutex_unlock(&p->d->mtx_journal);
+	pthread_mutex_lock(&p->d->mtx_printf);
+	printf("%d %d has take a fork\n", p->stp_fork, p->id);
+	pthread_mutex_unlock(&p->d->mtx_printf);
 }
 
 /* ************************************************************************** */
 void print_is_eating(t_philo *p)
 {
-	pthread_mutex_lock(&p->d->mtx_journal);
-	ft_printf("%d %d is eating\n", p->stamp_eat, p->id_philo);
-	pthread_mutex_unlock(&p->d->mtx_journal);
+	pthread_mutex_lock(&p->d->mtx_printf);
+	printf("%d %d is eating\n", p->stp_eat, p->id);
+	pthread_mutex_unlock(&p->d->mtx_printf);
 }
 
 /* ************************************************************************** */
 void print_is_sleeping(t_philo *p)
 {
-	pthread_mutex_lock(&p->d->mtx_journal);
-	ft_printf("%d %d is sleeping\n", p->stamp_sleep, p->id_philo);
-	pthread_mutex_unlock(&p->d->mtx_journal);
+	pthread_mutex_lock(&p->d->mtx_printf);
+	printf("%d %d is sleeping\n", p->stp_sleep, p->id);
+	pthread_mutex_unlock(&p->d->mtx_printf);
 }
 
 /* ************************************************************************** */
 void print_is_thinking(t_philo *p)
 {
-	pthread_mutex_lock(&p->d->mtx_journal);
-	ft_printf("%d %d is thinking\n", p->stamp_think, p->id_philo);
-	pthread_mutex_unlock(&p->d->mtx_journal);
+	pthread_mutex_lock(&p->d->mtx_printf);
+	printf("%d %d is thinking\n", p->stp_think, p->id);
+	pthread_mutex_unlock(&p->d->mtx_printf);
 }
 
 /* ************************************************************************** */
 void print_is_died(t_philo *p)
 {
-	pthread_mutex_lock(&p->d->mtx_journal);
-	ft_printf("%d %d died\n", p->stamp_died, p->id_philo);
-	pthread_mutex_unlock(&p->d->mtx_journal);
+	pthread_mutex_lock(&p->d->mtx_printf);
+	printf("%d %d died\n", p->stp_died, p->id);
+	pthread_mutex_unlock(&p->d->mtx_printf);
 }
 /* ************************************************************************** */
 

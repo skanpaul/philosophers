@@ -18,7 +18,7 @@ bool is_this_philo_dead(t_philo *p)
 
 	timestamp = get_timestamp();
 	
-	if (timestamp - p->stamp_eat >= p->d->time_to_die)
+	if (timestamp - p->stp_eat >= p->d->time_die)
 		return (true);
 	return (false);
 }
