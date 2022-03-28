@@ -3,18 +3,18 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: clang build active file",
-			"command": "/usr/bin/clang",
+			"label": "C/C++: gcc build active file",
+			"command": "/usr/bin/gcc",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
 				"*.c",
 				"-pthread",
 				"-o",
-				"/Users/ski/Documents/2_Module_En_Cours/work_philosophers/philo"
+				"${fileDirname}/${fileBasenameNoExtension}"
 			],
 			"options": {
-				"cwd": "/Users/ski/Documents/2_Module_En_Cours/work_philosophers/"
+				"cwd": "${fileDirname}"
 			},
 			"problemMatcher": [
 				"$gcc"
@@ -23,7 +23,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail": "compiler: /usr/bin/clang"
+			"detail": "compiler: /usr/bin/gcc"
 		}
 	]
 }
