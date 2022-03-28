@@ -16,28 +16,18 @@ void	assign_fork_to_philo(pthread_mutex_t *f, t_philo *p, t_data *d)
 {
 	int i;
 
-	// only 1 philosopher --------------------
-	if (d->max_philo == 1)
+	i = 0;
+	while (i < d->max_philo)
 	{
-		p[0].fork_left = &f[0];
-		p[0].fork_right = &f[0];
-	}
-	// 2 or more philosopher -----------------
-	else
-	{
-		i = 0;
-		while (i < d->max_philo)
-		{
-			p[i].fork_left = &f[i];
+		p[i].fork_left = &f[i];
 
-			if (i == d->max_philo - 1)
-				p[i].fork_right = &f[0];
-			else
-				p[i].fork_right = &f[i + 1];
-			i++;
-		}
+		if (i == d->max_philo - 1)
+			p[i].fork_right = &f[0];
+		else
+			p[i].fork_right = &f[i + 1];
+		i++;
 	}
-	// ---------------------------------------
+
 	return ;
 }
 

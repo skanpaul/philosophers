@@ -15,15 +15,15 @@
 bool is_any_philo_dead(t_philo *p)
 {
 	bool answer;
-	
+
 	pthread_mutex_lock(&p->d->mtx_all_living);
 	//-----------------------------------------
 	if(p->d->all_living == true)
-		answer = true;
-	else
 		answer = false;
+	else
+		answer = true;
 	//-----------------------------------------
-	pthread_mutex_lock(&p->d->mtx_all_living);
+	pthread_mutex_unlock(&p->d->mtx_all_living);
 	return (answer);
 }
 

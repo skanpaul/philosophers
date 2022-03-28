@@ -19,28 +19,28 @@ void *thread_life(void *arg)
 
 	p = (t_philo *)arg;
 
-	// p->fork_left = identify_fork_left(p->d->mtx_fork_set, p);
-	// p->fork_right = identify_fork_right(p->d->mtx_fork_set, p);
-
-	printf("PHILO [id:%d] is ALIVE\n", p->id);
+	// printf("PHILO [id:%d] is ALIVE\n", p->id);
+	// usleep(p->d->time_eat/p->d->max_philo * p->id);
 
 	// LOOP: TANT QUE PHILO EST VIVANT ---------------------------------------
-	while (1)
-	// while (!is_any_philo_dead(p))
+	while (!is_any_philo_dead(p))
 	{
 		// ATTENDRE 1ere FOURCHETTE -------------------
-
-		printf("PHILO [id:%d] WAIT fork left\n", p->id);
 		pthread_mutex_lock(p->fork_left);
-		printf("PHILO [id:%d] TOOK fork left\n", p->id);
-		if (is_this_philo_dead(p))	goto is_dead; // IS DEAD?
+
+		if (is_this_philo_dead(p)) goto is_dead; // IS DEAD?			
 		if (is_any_philo_dead(p)) return (arg);
+		
 		p->stp_fork = get_timestamp();
 		print_has_taken_a_fork(p);
 
+		// printf("---> ICI <---\n");
 		// ATTENDRE 2eme FOURCHETTE -------------------
-		pthread_mutex_lock(p->fork_right);
-		if (is_this_philo_dead(p))	goto is_dead; // IS DEAD?
+		// pthread_mutex_lock(p->fork_right);
+		if(pthread_mutex_lock(p->fork_right) != 0)
+			break;
+
+		if (is_this_philo_dead(p)) goto is_dead; // IS DEAD?
 		if (is_any_philo_dead(p)) return (arg);
 		p->stp_fork = get_timestamp();
 		print_has_taken_a_fork(p);
@@ -52,15 +52,16 @@ void *thread_life(void *arg)
 		while (1)
 		{
 			wait_time = wait_time / 2;
-			usleep(wait_time);
+			usleep(wait_time * 1000);
 			if (is_this_philo_dead(p))	goto is_dead; // IS DEAD? ;
 			if (is_any_philo_dead(p)) return (arg);
 			if(has_finished_to_eat(p)) 	break;
 		}
 
+		// printf("---> ICI <---\n");
 		// RENDRE FOURCHETTE
-		pthread_mutex_lock(p->fork_right);
-		pthread_mutex_lock(p->fork_left);
+		pthread_mutex_unlock(p->fork_right);
+		pthread_mutex_unlock(p->fork_left);
 
 		// DORS
 		print_is_sleeping(p);
@@ -68,7 +69,7 @@ void *thread_life(void *arg)
 		while (1) 
 		{
 			wait_time = wait_time / 2;
-			usleep(wait_time);
+			usleep(wait_time * 1000);
 			if (is_this_philo_dead(p))	goto is_dead; // IS DEAD? ;
 			if (has_finished_to_sleep(p))	break;
 			if (is_any_philo_dead(p)) return (arg);
@@ -79,7 +80,7 @@ void *thread_life(void *arg)
 		wait_time = wait_time / 2;
 		print_is_thinking(p);
 		// ??? WHEN SHOULD THE PHILOSOPHE EAT
-		usleep(wait_time);
+		usleep(wait_time * 1000);
 		if (is_this_philo_dead(p))	goto is_dead; // IS DEAD? ;
 		if (is_any_philo_dead(p)) return (arg);
 					
@@ -93,7 +94,7 @@ is_dead:
 
 	pthread_mutex_lock(&p->d->mtx_all_living);
 	p->d->all_living = false;
-	pthread_mutex_lock(&p->d->mtx_all_living);
+	pthread_mutex_unlock(&p->d->mtx_all_living);
 
 
 	printf("PHILO [id:%d] is DEAD\n", p->id);

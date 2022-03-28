@@ -47,12 +47,9 @@ int main()
 	// 4) CREER DONNEES PHILOSOPHERS ------------------------------
 	if ((philo_list = create_philospher(&d)) == NULL)
 		return (ERROR);
+
 	d.philo_list = philo_list;
-
 	assign_fork_to_philo(mtx_fork_list, philo_list, &d);
-
-
-
 
 	// 5) DONNER LA VIE AU PHILOSOPGHER ---------------------------
 	if ((give_life(philo_list, &d)) == ERROR)
@@ -60,8 +57,10 @@ int main()
 
 	// 6) DES QU UN PHILOSOPHER MEURT, LE PROGRAMME S-ARRETE ------
 
-	while (d.all_living) 
-		usleep (wait_time);
+	while (d.all_living)
+	{
+		usleep (d.time_die * 1000);
+	}
 
 	// DESTROY ALL MUTEX: 1) mtx_fork_set 2) mtx_printf 3) mtx_all_living
 	mtx_destroy_all(mtx_fork_list, &d);
