@@ -11,7 +11,8 @@
 				"*.c",
 				"-pthread",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				// "${fileDirname}/${fileBasenameNoExtension}"
+				"${fileDirname}/philo"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

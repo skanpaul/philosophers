@@ -1,6 +1,6 @@
 {
 	"explorer.sortOrder": "type",
 	"files.exclude": {
-		"ft_*": true
+		"ft_*": false
 	}
 }

@@ -104,6 +104,7 @@ int		ft_strlen(char *str);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 bool	is_countable(char *str);
+void	ft_msleep(int time_ms);
 /* ************************************************************************** */
 #endif
 

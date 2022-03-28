@@ -14,7 +14,7 @@
 /* ************************************************************************** */
 void init_data(t_data *d)
 {
-	d->max_philo		= 2;	
+	d->max_philo		= 6;	
 	d->time_die 		= 10 * 1000;	// after the beginning of last meal
 	d->time_eat 		= 2 * 1000;
 	d->time_sleep 		= 2 * 1000;
